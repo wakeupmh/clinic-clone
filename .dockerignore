@@ -1,0 +1,8 @@
+test
+node_modules
+.editorconfig
+.eslintrc.js
+.gitignore
+commitlint.config.js
+jsconfig.json
+nyc.config.js

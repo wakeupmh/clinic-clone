@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonJS",
+      "allowSyntheticDefaultImports": true,
+      "baseUrl": "./",
+      "paths": {
+        "@cockpit/*": ["./src/*", "__test__/*/*"]
+      }
+    },
+    "exclude": ["node_modules"]
+}
