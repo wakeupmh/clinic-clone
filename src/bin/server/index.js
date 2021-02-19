@@ -1,6 +1,5 @@
 const http = require('http')
 const { createTerminus } = require('@godaddy/terminus')
-console.log(require('../../config'))
 const { apiConfig } = require('../../config')
 const { createLog, app } = require('../../infrastructure')
 

@@ -1,27 +1,37 @@
 const axios = require('axios')
-const { dataProviderConfig } = require('../../config')
+const retryAxios = require('retry-axios')
+const {
+  apiConfig
+} = require('../../config')
 
-const factory = () => {
-  const instance = axios.create({
-    baseURL: 'xpto',
+module.exports = ({
+  token,
+  retryTimes,
+  Logger,
+  scope
+}) => {
+  const axiosInstance = axios.create({
+    baseURL: apiConfig.baseURL,
     headers: {
-      'Content-type': 'application/json'
+      'Content-type': 'application/json',
+      'Authorization': `Bearer ${token}`
     }
   })
 
-  instance.interceptors.request.use(config => {
-    config.headers.apikey = dataProviderConfig.apikey
+  axios.defaults.timeout = timeout
 
-    return config
-  })
+  axiosInstance.defaults.raxConfig = {
+    instance: axiosInstance,
+    retry: retryTimes,
+    noResponseRetries: retryTimes,
+    httpMethodsToRetry: ['GET', 'HEAD', 'OPTIONS', 'POST'],
+    onRetryAttempt: err => {
+      const cfg = rax.getConfig(err)
+      Logger.warn(`${scope} - Retry attempt #${cfg.currentRetryAttempt}`);
+    }
+  }
 
-  return instance
+  retryAxios.attach(axiosInstance);
+
+  return axiosInstance
 }
-
-let request = null
-
-if (!request) {
-  request = factory()
-}
-
-module.exports = { request }

@@ -1,3 +1,3 @@
 module.exports = {
-  ...require('./client')
+  dependentServiceFactory: require('./dependent-service')
 }

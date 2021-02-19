@@ -11,7 +11,7 @@ const createPrescription = ({ request, response }) => {
     .then(handleCreatedResponse(response))
 }
 
-module.exports = controller('/partner', prescriptionMiddlewareInjector)({
+module.exports = controller('/prescription', prescriptionMiddlewareInjector)({
   createPrescription
 }, {
   createPrescription: post(schemaValidation(createPrescriptionSchema))

@@ -44,6 +44,7 @@
     "ioredis": "^4.22.0",
     "module-alias": "^2.2.2",
     "pg": "^8.3.3",
+    "retry-axios": "^2.4.0",
     "sequelize": "^6.3.5",
     "winston": "^3.2.1",
     "yup": "^0.31.0"
