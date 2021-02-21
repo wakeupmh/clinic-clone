@@ -13,7 +13,7 @@ module.exports = ({
       scope: 'physiciansService',
       Logger
     })
-    .get(`physician/${idPatient}`)
+      .get(`physician/${idPatient}`)
 
   const clinicsService = idPatient =>
     client({
@@ -22,7 +22,7 @@ module.exports = ({
       scope: 'clinicsService',
       Logger
     })
-    .get(`clinics/${idPatient}`)
+      .get(`clinics/${idPatient}`)
 
   const patientsService = idPatient =>
     client({
@@ -31,7 +31,7 @@ module.exports = ({
       scope: 'patientsService',
       Logger
     })
-    .get(`patients/${idPatient}`)
+      .get(`patients/${idPatient}`)
 
   const metricsService = payload =>
     client({
@@ -40,7 +40,7 @@ module.exports = ({
       scope: 'metricsService',
       Logger
     })
-    .post(`patients/${idPatient}`, payload)
+      .post(`patients/${idPatient}`, payload)
 
   return {
     physiciansService,

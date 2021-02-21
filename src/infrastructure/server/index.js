@@ -1,5 +1,5 @@
-module.exports = { 
-	...require('./application'),
-	...require('./middlewares'),
-	...require('./response')
+module.exports = {
+  ...require('./application'),
+  ...require('./middlewares'),
+  ...require('./response')
 }
