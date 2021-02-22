@@ -8,6 +8,7 @@ const createPrescription = ({ request, response }) => {
 
   return Promise.resolve(body)
     .then(createPrescription)
+    
     .then(handleCreatedResponse(response))
 }
 

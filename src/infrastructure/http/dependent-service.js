@@ -4,8 +4,7 @@ const timeoutCodes = scope => {
   const codes = {
     'metrics': () => '04',
     'physicians': () => '05',
-    'patients': () => '06',
-    'clinics': () => '07',
+    'patients': () => '06'
   }
 
   return codes[scope]
@@ -15,7 +14,7 @@ const errorStrategy = (error, scope, code) => {
   if (error.code === 'ECONNABORTED')
     throw {
       error,
-      code,
+      timoutCode: code,
       scope
     }
   else
@@ -59,7 +58,7 @@ module.exports = ({
         Logger
       })
         .get(`clinics/${idPatient}`)
-        .catch(error => errorStrategy(error, 'clinics', timeoutCodes('clinics')))
+        .catch(() => Promise.resolve())
     
     return cacheStrategy(key, handler, apiConfig.clinicsTtl)
   }
