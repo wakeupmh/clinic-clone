@@ -10,13 +10,13 @@ const cache = ({ redis, Logger }) => {
   const set = (key, data, ttl) =>
     redis().then(c => c.set(key, JSON.stringify(data), 'EX', ttl))
 
-  const fetchData = (handler, key, ttl) => 
+  const fetchData = (handler, key, ttl) =>
     Bluebird.resolve(handler())
-      .tap(dataToCache => set(key, data, ttl))
-      .tap(dataToCache => {
+      .tap(dataToCache => set(key, dataToCache, ttl))
+      .tap(() => {
         Logger.info(`Data feteched with key: ${key} and ttl: ${ttl}`)
       })
-    
+
   return {
     get,
     fetchData
