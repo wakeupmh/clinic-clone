@@ -1,5 +1,27 @@
 const client = require('./client')
 
+const timeoutCodes = scope => {
+  const codes = {
+    'metrics': () => '04',
+    'physicians': () => '05',
+    'patients': () => '06',
+    'clinics': () => '07',
+  }
+
+  return codes[scope]
+}
+
+const errorStrategy = (error, scope, code) => {
+  if (error.code === 'ECONNABORTED')
+    throw {
+      error,
+      code,
+      scope
+    }
+  else
+    throw error
+}
+
 module.exports = ({
   apiConfig,
   Logger,
@@ -22,6 +44,7 @@ module.exports = ({
         Logger
       })
         .get(`physician/${idPatient}`)
+        .catch(error => errorStrategy(error, 'physician', timeoutCodes('physician')))
     
     return cacheStrategy(key, handler, apiConfig.physiciansTtl)
   }
@@ -36,6 +59,7 @@ module.exports = ({
         Logger
       })
         .get(`clinics/${idPatient}`)
+        .catch(error => errorStrategy(error, 'clinics', timeoutCodes('clinics')))
     
     return cacheStrategy(key, handler, apiConfig.clinicsTtl)
   }
@@ -50,6 +74,7 @@ module.exports = ({
         Logger
       })
         .get(`patients/${idPatient}`)
+        .catch(error => errorStrategy(error, 'patients', timeoutCodes('patients')))
 
     return cacheStrategy(key, handler, apiConfig.patientsTtl)
   }
@@ -63,7 +88,8 @@ module.exports = ({
         scope: 'metricsService',
         Logger
       })
-        .post(`patients/${idPatient}`, payload)
+        .post(`metrics/${idPatient}`, payload)
+        .catch(error => errorStrategy(error, 'metrics', timeoutCodes('metrics')))
     
     return cacheStrategy(key, handler, apiConfig.metricsTtl)
   }
