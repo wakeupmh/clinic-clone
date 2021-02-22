@@ -1,15 +1,23 @@
 const {
+  apiConfig
+} = require('../../../config')
+
+const {
   createLog,
   database,
-  dependentServiceFactory
+  dependentServiceFactory,
+  cacheClient
 } = require('../../../infrastructure')
+
 const {
   prescriptionServiceFactory
 } = require('../../../prescription')
 
 const prescriptionMiddlewareInjector = (req, _, next) => {
   const dependentServices = dependentServiceFactory({
-    Logger: createLog('dependentServices')
+    Logger: createLog('dependentServices'),
+    cacheClient,
+    apiConfig
   })
   const {
     createPrescription

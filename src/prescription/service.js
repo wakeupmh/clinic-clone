@@ -1,8 +1,9 @@
+const Bluebird = require('bluebird')
+
 module.exports = ({
   Logger,
   dependentServices,
-  cacheClient,
-  database
+  database,
 }) => {
   const createPrescription = body => {
 
