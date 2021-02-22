@@ -37,10 +37,11 @@ module.exports = ({
     const key = `physicians#${idPatient}`
     const handler = () =>
       client({
-        token: apiConfig.physiciansToken,
-        retryTimes: apiConfig.physiciansRetryTimes,
         scope: 'physiciansService',
-        Logger
+        Logger,
+        timeout: apiConfig.physiciansTimeout,
+        token: apiConfig.physiciansToken,
+        retryTimes: apiConfig.physiciansRetryTimes
       })
         .get(`/physician/${idPatient}`)
         .catch(error => errorStrategy(error, 'physician', timeoutCodes('physician')))
@@ -52,10 +53,11 @@ module.exports = ({
     const key = `clinics#${idPatient}`
     const handler = () =>
       client({
-        token: apiConfig.clinicsToken,
-        retryTimes: apiConfig.clinicsRetryTimes,
         scope: 'clinicsService',
-        Logger
+        Logger,
+        timeout: apiConfig.clinicsTimeout,
+        token: apiConfig.clinicsToken,
+        retryTimes: apiConfig.clinicsRetryTimes
       })
         .get(`/clinics/${idPatient}`)
         .catch(() => Promise.resolve())
@@ -67,10 +69,11 @@ module.exports = ({
     const key = `patients#${idPatient}`
     const handler = () =>
       client({
-        token: apiConfig.patientsToken,
-        retryTimes: apiConfig.patientsRetryTimes,
         scope: 'patientsService',
-        Logger
+        Logger,
+        timeout: apiConfig.patientsTimeout,
+        token: apiConfig.patientsToken,
+        retryTimes: apiConfig.patientsRetryTimes
       })
         .get(`/patients/${idPatient}`)
         .catch(error => errorStrategy(error, 'patients', timeoutCodes('patients')))
@@ -82,10 +85,11 @@ module.exports = ({
     const key = `metrics#${payload.patient_id}`
     const handler = () =>
       client({
-        token: apiConfig.metricsToken,
-        retryTimes: apiConfig.metricsRetryTimes,
         scope: 'metricsService',
-        Logger
+        Logger,
+        timeout: apiConfig.metricsTimeout,
+        token: apiConfig.metricsToken,
+        retryTimes: apiConfig.metricsRetryTimes
       })
         .post('metrics', payload)
         .catch(error => errorStrategy(error, 'metrics', timeoutCodes('metrics')))

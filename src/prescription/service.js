@@ -8,9 +8,9 @@ module.exports = ({
   const createPrescription = body => {
     return prescriptionRepository.bootstrap()
       .then(() => dependentServices.physiciansService(body.physician.id))
-      .then(physiciansResponse => 
+      .then(physiciansResponse =>
         Promise.all([
-          physiciansResponse, 
+          physiciansResponse,
           dependentServices.patientsService(body.patient.id)
         ])
       )
@@ -36,5 +36,3 @@ module.exports = ({
     createPrescription
   }
 }
-
-
