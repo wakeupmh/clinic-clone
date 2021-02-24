@@ -12,7 +12,7 @@ const {
 const {
   prescriptionServiceFactory,
   prescriptionPayloadMethods,
-  prescriptionRepository
+  prescriptionRepositoryFactory
 } = require('../../../prescription')
 
 const prescriptionMiddlewareInjector = (req, _, next) => {
@@ -25,9 +25,12 @@ const prescriptionMiddlewareInjector = (req, _, next) => {
   const {
     createPrescription
   } = prescriptionServiceFactory({
-    Logger: createLog('prescription'),
+    Logger: createLog('prescriptionService'),
     dependentServices,
-    prescriptionRepository,
+    prescriptionRepository: prescriptionRepositoryFactory({
+      Logger: createLog('prescriptionRepository'),
+      database
+    }),
     prescriptionPayloadMethods
   })
 

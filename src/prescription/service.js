@@ -1,4 +1,3 @@
-
 module.exports = ({
   Logger,
   dependentServices,
@@ -29,7 +28,7 @@ module.exports = ({
       })
       .then(prescriptionPayloadMethods.metricsPayload(body))
       .then(dependentServices.metricsService)
-      .then(() => prescriptionRepository.createPrescriptionRoundtrip(body))
+      .then(() => prescriptionRepository.transactionCreateRoundTrip(body))
   }
 
   return {

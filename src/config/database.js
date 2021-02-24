@@ -1,3 +1,4 @@
+require('dotenv').config()
 module.exports = Object.freeze({
   host: process.env.DATABASE_HOST,
   dialect: 'postgres',
