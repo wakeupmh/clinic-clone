@@ -8,13 +8,14 @@ module.exports = ({
   token,
   retryTimes,
   Logger,
-  scope
+  scope,
+  timeout
 }) => {
   const axiosInstance = axios.create({
     baseURL: apiConfig.baseURL,
     headers: {
       'Content-type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
   })
 
@@ -26,12 +27,12 @@ module.exports = ({
     noResponseRetries: retryTimes,
     httpMethodsToRetry: ['GET', 'HEAD', 'OPTIONS', 'POST'],
     onRetryAttempt: err => {
-      const cfg = rax.getConfig(err)
-      Logger.warn(`${scope} - Retry attempt #${cfg.currentRetryAttempt}`);
+      const cfg = retryAxios.getConfig(err)
+      Logger.warn(`${scope} - Retry attempt #${cfg.currentRetryAttempt}`)
     }
   }
 
-  retryAxios.attach(axiosInstance);
+  retryAxios.attach(axiosInstance)
 
   return axiosInstance
 }

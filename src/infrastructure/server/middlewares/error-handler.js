@@ -7,12 +7,15 @@ const notFoundHandler = (req, _, next) => {
 }
 
 const validationErrorHandler = (error, _, res, next) => {
-  const possibleErrors = ['BadRequestError', 'Bad Request', 'MulterError']
+  const possibleErrors = ['BadRequestError', 'Bad Request']
 
   if (possibleErrors.includes(error.name)) {
     return res.status(400).json({
-      statusCode: 400,
-      errors: error.errors
+      error: {
+        message: 'malformed request',
+        code: '01',
+        details: error.errors
+      }
     })
   }
 
@@ -21,6 +24,15 @@ const validationErrorHandler = (error, _, res, next) => {
 
 const errorHandler = (error, _, res, next) => {
   const statusCode = boom.isBoom(error) ? error.output.statusCode : 500
+
+  if (error.scope) {
+    return res.status(408).json({
+      error: {
+        message: `${error.scope} service not available`,
+        code: error.timoutCode
+      }
+    })
+  }
 
   if (!boom.isBoom(error)) {
     Logger.error(error.message, error.stack)
