@@ -8,12 +8,11 @@ const createPrescription = ({ request, response }) => {
 
   return Promise.resolve(body)
     .then(createPrescription)
-    
     .then(handleCreatedResponse(response))
 }
 
 module.exports = controller('/prescription', prescriptionMiddlewareInjector)({
   createPrescription
 }, {
-  createPrescription: post(schemaValidation(createPrescriptionSchema))
+  createPrescription: post(createPrescriptionSchema)
 })
