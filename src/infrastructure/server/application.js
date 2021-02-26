@@ -1,4 +1,4 @@
-const { apm } = require('@ze/infrastructure')
+const { apm } = require('../../infrastructure')
 const cors = require('cors')
 const helmet = require('helmet')
 const express = require('express')
