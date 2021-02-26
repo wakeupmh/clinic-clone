@@ -6,11 +6,13 @@ let keyValueStore = null
 
 module.exports = () => {
   return new Bluebird.Promise(resolve => {
-    const { host, port, db, password, tls } = cache
+    const { redisHost, redisPort, redisDb } = cache
+    
     if (keyValueStore) {
       return resolve(keyValueStore)
     }
-    keyValueStore = new Redis({ host, port, db, password, tls })
+
+    keyValueStore = new Redis({ redisHost, redisPort, redisDb })
     return resolve(keyValueStore)
   })
 }
