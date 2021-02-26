@@ -30,3 +30,6 @@ coverage
 reports
 
 .DS_Store
+
+#error-log
+yarn-error.log

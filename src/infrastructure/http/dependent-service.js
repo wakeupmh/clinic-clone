@@ -87,7 +87,6 @@ module.exports = ({
       client({
         scope: 'metricsService',
         Logger,
-        timeout: apiConfig.metricsTimeout,
         token: apiConfig.metricsToken,
         retryTimes: apiConfig.metricsRetryTimes
       })

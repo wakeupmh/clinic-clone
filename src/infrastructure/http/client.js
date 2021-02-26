@@ -19,12 +19,14 @@ module.exports = ({
     }
   })
 
-  axios.defaults.timeout = timeout
+  if (timeout) {
+    axios.defaults.timeout = +timeout
+  }
 
   axiosInstance.defaults.raxConfig = {
     instance: axiosInstance,
-    retry: retryTimes,
-    noResponseRetries: retryTimes,
+    retry: +retryTimes,
+    noResponseRetries: +retryTimes,
     httpMethodsToRetry: ['GET', 'HEAD', 'OPTIONS', 'POST'],
     onRetryAttempt: err => {
       const cfg = retryAxios.getConfig(err)
