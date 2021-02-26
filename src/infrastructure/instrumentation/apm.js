@@ -1,10 +1,13 @@
-const { apmServiceName, apmServerUrl } = require('../../infrastructure')
+const { apiConfig } = require('../../infrastructure')
 
 const apm = require('elastic-apm-node').start({
-  serviceName: apmServiceName,
-  serverUrl: apmServerUrl
+  serviceName: apiConfig.apmServiceName,
+  serverUrl: apiConfig.apmServerUrl,
+  active: apiConfig.apmActive,
+  environment: apiConfig.environment,
+  ignoreUrls: ['/healthcheck']
 })
 
-module.exports {
+module.exports = {
   apm
 }
