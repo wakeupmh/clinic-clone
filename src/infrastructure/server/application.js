@@ -10,7 +10,8 @@ const {
   errorHandler,
   notFoundHandler,
   validationErrorHandler,
-  schemaValidation
+  schemaValidation,
+  useSwaggerDocs
 } = require('./middlewares')
 
 const app = express()
@@ -30,6 +31,7 @@ app.use('/v2', useControllers({
   controllerExpression: `${resolve('src')}/**/controller.js`
 }))
 
+app.use(useSwaggerDocs(router))
 app.use(schemaValidation)
 app.use(notFoundHandler)
 app.use(validationErrorHandler)

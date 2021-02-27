@@ -1,4 +1,5 @@
-module.exports = { 
+module.exports = {
   iclinicDb: require('./database'),
-  ...require('./api')
+  ...require('./api'),
+  ...require('./swagger')
 }
