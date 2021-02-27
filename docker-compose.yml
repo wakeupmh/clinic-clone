@@ -1,0 +1,81 @@
+version: '3.3'
+ 
+services:
+  postgres:
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+        - POSTGRES_DB=authorizer
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=pg@123
+    volumes:
+      - pg-volume-data:/var/lib/postgresql/data
+      
+  redis:
+    image: redis:6.0.10-alpine
+    ports:
+      - 6379:6379
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.4.0
+    depends_on:
+      - elasticsearch
+    environment:
+      - output.elasticsearch.hosts=["elasticsearch:9200"]
+    volumes:
+      - "./apm-server.yml:/usr/share/apm-server/apm-server.yml:ro"
+    ports:
+      - 8200:8200
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
+  app:
+    build: .
+    ports: 
+      - 3001:3001
+    links:
+      - redis
+      - postgres
+      - apm-server
+    environment:
+      - PORT=3001
+      - APM_SERVICE_NAME=iclinic-service
+      - APM_SERVER_URL=http://localhost:8200
+      - ENV=dev
+      - PHYSICIANS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoicGh5c2ljaWFucyJ9.Ei58MtFFGBK4uzpxwnzLxG0Ljdd-NQKVcOXIS4UYJtA
+      - PHYSICIANS_RETRY_TIMES=2
+      - PHYSICIANS_TIMEOUT=172800000
+      - CLINICS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoiY2xpbmljcyJ9.r3w8KS4LfkKqZhOUK8YnIdLhVGJEqnReSClLCMBIJRQ
+      - CLINICS_RETRY_TIMES=3
+      - CLINICS_TIMEOUT=259200000
+      - PATIENTS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoicGF0aWVudHMifQ.Pr6Z58GzNRtjX8Y09hEBzl7dluxsGiaxGlfzdaphzVU
+      - PATIENTS_RETRY_TIMES=2
+      - PATIENTS_TIMEOUT=43200000
+      - METRICS_TOKEN=SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+      - METRICS_RETRY_TIMES=5
+      - DATABASE_HOST=http://localhost:5432
+      - DATABASE_NAME=authorizer
+      - DATABASE_USER=postgres
+      - DATABASE_PASS=pg@123
+      - REDIS_HOST=http://localhost:6379
+      - REDIS_PORT=6379
+      - REDIS_DB=iclinic-cache
+      
+volumes:
+  pg-volume-data:

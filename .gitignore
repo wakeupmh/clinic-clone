@@ -1,0 +1,35 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+.env
+
+# Terraform
+terraform/.terraform
+terraform/variables.*.auto.tfvars
+
+# Build
+dist
+build
+
+# vscode
+.vscode
+
+#coverage
+.nyc_output
+coverage
+
+.webpack
+
+.txt
+# stryker temp files
+.stryker-tmp
+reports
+
+.DS_Store
+
+#error-log
+yarn-error.log
