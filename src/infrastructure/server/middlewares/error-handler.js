@@ -26,10 +26,10 @@ const errorHandler = (error, _, res, next) => {
   const statusCode = boom.isBoom(error) ? error.output.statusCode : 500
 
   if (error.scope) {
-    return res.status(408).json({
+    return res.status(error.statusCode).json({
       error: {
-        message: `${error.scope} service not available`,
-        code: error.timoutCode
+        message: error.customMessage,
+        code: error.errorCodeType
       }
     })
   }

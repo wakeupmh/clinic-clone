@@ -1,7 +1,7 @@
 const { createLogger, transports } = require('winston')
 const { combineLogFormats } = require('./format-levels')
 
-const createLog = scope => 
+const createLog = scope =>
   createLogger({
     level: 'info',
     defaultMeta: {

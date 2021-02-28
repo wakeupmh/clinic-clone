@@ -14,11 +14,12 @@
     "test": "jest",
     "start:api": "node src/bin/server/index.js",
     "make-badges": "istanbul-badges-readme",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint --fix ."
   },
   "husky": {
     "hooks": {
-      "pre-commit": "git add 'README.md'",
+      "pre-commit": "npm run lint:fix && git add 'README.md'",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
