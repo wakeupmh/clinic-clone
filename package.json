@@ -6,7 +6,6 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "sonar":  "node sonar-project.js",
     "cz": "git-cz",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest.config.js",
