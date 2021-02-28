@@ -57,7 +57,7 @@ services:
       - PORT=3001
       - APM_SERVICE_NAME=iclinic-service
       - APM_SERVER_URL=http://localhost:8200
-      - ENV=dev
+      - ENV=local
       - PHYSICIANS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoicGh5c2ljaWFucyJ9.Ei58MtFFGBK4uzpxwnzLxG0Ljdd-NQKVcOXIS4UYJtA
       - PHYSICIANS_RETRY_TIMES=2
       - PHYSICIANS_TIMEOUT=172800000
