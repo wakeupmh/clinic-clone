@@ -5,4 +5,3 @@ module.exports = {
   iclinicDb: require('./storage/db'),
   redis: require('./storage/redis')
 }
-

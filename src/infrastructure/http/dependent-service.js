@@ -1,25 +1,22 @@
 const client = require('./client')
+const errorStrategy = require('./error-strategy')
 
-const timeoutCodes = scope => {
+const errorCodes = scope => {
   const codes = {
-    metrics: () => '04',
-    physicians: () => '05',
-    patients: () => '06'
+    metrics: () => ({
+      timeout: '04'
+    }),
+    physicians: () => ({
+      timeout: '05',
+      notFound: '02'
+    }),
+    patients: () => ({
+      timeout: '06',
+      notFound: '01'
+    })
   }
 
   return codes[scope]
-}
-
-const errorStrategy = (error, scope, code) => {
-  if (error.code === 'ECONNABORTED') {
-    const timeoutError = new Error(`Timeout ${scope} service`)
-    timeoutError.timeoutCode = code
-    timeoutError.scope = scope
-
-    throw timeoutError
-  }
-
-  throw error
 }
 
 module.exports = ({
@@ -44,7 +41,7 @@ module.exports = ({
         retryTimes: apiConfig.physiciansRetryTimes
       })
         .get(`/physician/${idPatient}`)
-        .catch(error => errorStrategy(error, 'physician', timeoutCodes('physician')))
+        .catch(error => errorStrategy(error, 'physician', errorCodes('physician')))
 
     return cacheStrategy(key, handler, apiConfig.physiciansTtl)
   }
@@ -76,7 +73,7 @@ module.exports = ({
         retryTimes: apiConfig.patientsRetryTimes
       })
         .get(`/patients/${idPatient}`)
-        .catch(error => errorStrategy(error, 'patients', timeoutCodes('patients')))
+        .catch(error => errorStrategy(error, 'patients', errorCodes('patients')))
 
     return cacheStrategy(key, handler, apiConfig.patientsTtl)
   }
@@ -91,7 +88,7 @@ module.exports = ({
         retryTimes: apiConfig.metricsRetryTimes
       })
         .post('metrics', payload)
-        .catch(error => errorStrategy(error, 'metrics', timeoutCodes('metrics')))
+        .catch(error => errorStrategy(error, 'metrics', errorCodes('metrics')))
 
     return cacheStrategy(key, handler, apiConfig.metricsTtl)
   }
