@@ -27,4 +27,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'prescription'
   })
+
+  return prescription
 }

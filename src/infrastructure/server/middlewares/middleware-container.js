@@ -21,7 +21,7 @@ const prescriptionMiddlewareInjector = (req, _, next) => {
     cacheClient,
     apiConfig
   })
-  
+
   const {
     createPrescription
   } = prescriptionServiceFactory({
