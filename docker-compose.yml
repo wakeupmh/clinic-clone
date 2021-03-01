@@ -6,9 +6,9 @@ services:
     ports:
       - 5432:5432
     environment:
-        - POSTGRES_DB=authorizer
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=pg@123
+      - POSTGRES_DB=authorizer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pg@123
     volumes:
       - pg-volume-data:/var/lib/postgresql/data
       

@@ -57,7 +57,7 @@ describe('Http cache tests', () => {
     expect(cacheFn).toStrictEqual(null)
   })
 
-  it('should fetch data into cache', async() => {
+  it('should fetch data into cache', async () => {
     const { sut, redis } = sutFactory()
     const client = await redis()
     const handlerFn = () => Promise.resolve(responseMock.physician)
