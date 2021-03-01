@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 
 const prescriptionRepository = require('../../src/prescription/repository')
-const prescriptionPayloadMock = require('./mock/payload')
-const repositoryMock = require('./mock/repository')
+const prescriptionPayloadMock = require('../mock/payloadd')
+const repositoryMock = require('../mock/repositoryy')
 
 const makePrescriptiontDb = () => ({
   bootstrap: async () => new Promise(resolve => resolve()),
@@ -10,8 +10,8 @@ const makePrescriptiontDb = () => ({
     transaction: async () => new Promise(resolve => resolve())
   },
   prescription: {
-    create: async (body) =>
-      await new Promise(resolve => resolve({ dataValues: body }))
+    create: async () =>
+      await new Promise(resolve => resolve(repositoryMock.prescription))
   }
 })
 
@@ -48,14 +48,15 @@ describe('Prescription repository', () => {
   describe('Prescription repository methods', () => {
     it('should create a prescription', async () => {
       const { sut, database } = sutFactory()
-      jest.spyOn(database.prescription, 'create')
-        .mockReturnValueOnce(repositoryMock.prescription)
 
       jest.spyOn(database.sequelize, 'transaction')
         .mockImplementationOnce(payload => {
           payload()
           return Promise.resolve()
         })
+
+      jest.spyOn(database.prescription, 'create')
+        .mockReturnValueOnce(repositoryMock.prescription)
 
       await sut
         .transactionCreateRoundTrip(prescriptionPayloadMock.prescrtiptionPaylaod)
