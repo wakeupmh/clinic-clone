@@ -4,7 +4,7 @@ const cache = ({ redis, Logger }) => {
   const get = key => redis().then(c => c.get(key))
     .then(data => JSON.parse(data || null))
     .catch(err => {
-      Logger.info(`Error fetching credential from cache ${err}`)
+      Logger.info(`Error fetching information from cache ${err}`)
     })
 
   const set = (key, data, ttl) =>

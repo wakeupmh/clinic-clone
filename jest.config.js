@@ -8,9 +8,12 @@ module.exports = {
     '!<rootDir>/src/**/models/*',
     '!<rootDir>/src/**/schema.js',
     '!<rootDir>/src/**/index.js',
-    '!<rootDir>/src/infrastructure/http/**/*',
+    '!<rootDir>/src/infrastructure/http/client.js',
     '!<rootDir>/src/infrastructure/logging/**/*',
     '!<rootDir>/src/infrastructure/storage/**/*',
-    '!<rootDir>/src/infrastructure/middlewares/*.js'
+    '!<rootDir>/src/infrastructure/instrumentation/**/*',
+    '!<rootDir>/src/infrastructure/server/middlewares/*.js',
+    '!<rootDir>/src/infrastructure/server/application.js',
+    '!<rootDir>/src/infrastructure/server/response.js'
   ]
 }
