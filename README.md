@@ -7,6 +7,9 @@ A aplicação foi criada baseada em container, por isso é necessário a instala
 ### Documentação:
 https://app.swaggerhub.com/apis/devopmh/iClinic/1.0.0
 
+## Tracing
+Para visualizar o rastreamento da aplicação basta após o passo anterior ter sido executado, abrir o http://localhost:5601 e visualizar os mesmos dispostos no **Kibana**.
+
 ## Contribuindo
 
 - O projeto faz uso do [**commitlint**](https://github.com/conventional-changelog/commitlint) em conjunto com [**husky**](https://github.com/typicode/husky) e [**commmitizen**](https://github.com/commitizen/cz-cli).
