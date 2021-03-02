@@ -6,7 +6,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=authorizer
+      - POSTGRES_DB=iclinic
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pg@123
     volumes:
@@ -70,7 +70,7 @@ services:
       - METRICS_TOKEN=SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
       - METRICS_RETRY_TIMES=5
       - DATABASE_HOST=http://localhost:5432
-      - DATABASE_NAME=authorizer
+      - DATABASE_NAME=iclinic
       - DATABASE_USER=postgres
       - DATABASE_PASS=pg@123
       - REDIS_HOST=http://localhost:6379

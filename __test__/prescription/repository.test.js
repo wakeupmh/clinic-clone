@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 
 const prescriptionRepository = require('../../src/prescription/repository')
-const prescriptionPayloadMock = require('../mock/payloadd')
-const repositoryMock = require('../mock/repositoryy')
+const prescriptionPayloadMock = require('../mock/payload')
+const repositoryMock = require('../mock/repository')
 
 const makePrescriptiontDb = () => ({
   bootstrap: async () => new Promise(resolve => resolve()),

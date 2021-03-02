@@ -40,7 +40,7 @@ module.exports = ({
         token: apiConfig.physiciansToken,
         retryTimes: apiConfig.physiciansRetryTimes
       })
-        .get(`/physician/${idPatient}`)
+        .get(`/physicians/${idPatient}`)
         .catch(error => errorStrategy(error, 'physician', errorCodes('physician')))
 
     return cacheStrategy(key, handler, apiConfig.physiciansTtl)
@@ -87,7 +87,7 @@ module.exports = ({
         token: apiConfig.metricsToken,
         retryTimes: apiConfig.metricsRetryTimes
       })
-        .post('metrics', payload)
+        .post('/metrics', payload)
         .catch(error => errorStrategy(error, 'metrics', errorCodes('metrics')))
 
     return cacheStrategy(key, handler, apiConfig.metricsTtl)

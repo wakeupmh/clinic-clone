@@ -2,8 +2,14 @@ const physician = { id: '3', name: 'Miss Kenny Franecki', crm: '56e6b987-3963-46
 const clinic = { id: '3', name: 'Anibal Torp' }
 const patient = { id: '3', name: 'Chester MacGyver', email: 'Antonette69@gmail.com', phone: '200.126.4051 x6710' }
 
+const unformattedMetrics = {
+  patientsResponse: patient,
+  clinicsResponse: clinic,
+  physiciansResponse: physician
+}
 module.exports = {
   physician,
   clinic,
-  patient
+  patient,
+  unformattedMetrics
 }
